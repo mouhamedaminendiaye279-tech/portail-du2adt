@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Villes et Urbanisation — Devoirs — L1 — Portail DU2ADT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white:#FFFFFF; --paper:#FBF9F4; --ink:#1C1712; --stone:#8B8172;
+    --line:#DED5C4; --orange:#C7450A; --orange-deep:#8C3107; --amber:#E3A33B; --wash:#FBE6D6;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--white); color:var(--ink); font-family:'IBM Plex Sans', sans-serif; line-height:1.55; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:'Fraunces', serif; font-weight:600; line-height:1.05; letter-spacing:-0.01em;}
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1000px; margin:0 auto; padding:0 40px;}
+  .mono{font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.04em; color:var(--stone);}
+
+  header{position:sticky; top:0; z-index:60; background:rgba(255,255,255,0.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);}
+  .header-inner{display:flex; align-items:center; justify-content:space-between; padding:18px 40px; max-width:1220px; margin:0 auto;}
+  .logo{display:flex; align-items:center; gap:12px;}
+  .uam-logo{height:40px; width:auto; display:block;}
+  .logo-text{display:flex; flex-direction:column; gap:2px;}
+  .logo-title{font-family:'Fraunces', serif; font-size:18px; font-weight:700; letter-spacing:-0.01em; line-height:1;}
+  .logo-sub{font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--stone);}
+  .back-link{font-size:13.5px; font-weight:500; display:flex; align-items:center; gap:6px;}
+  .back-link:hover{color:var(--orange);}
+
+  .breadcrumb{padding:34px 0 0; display:flex; align-items:center; gap:8px;}
+  .breadcrumb .sep{color:var(--line);}
+
+  .course-head{padding:20px 0 52px; border-bottom:1px solid var(--line); margin-bottom:52px;}
+  .course-head h1{font-size:clamp(30px,4vw,44px); max-width:18ch; margin:16px 0 14px;}
+  .course-head p{font-size:15px; color:var(--stone); max-width:52ch;}
+  .course-meta{display:flex; gap:28px; margin-top:26px; flex-wrap:wrap;}
+  .course-meta div{display:flex; flex-direction:column; gap:4px;}
+  .course-meta .k{font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--stone); letter-spacing:0.03em;}
+  .course-meta .v{font-size:14px; font-weight:600;}
+
+  .group{margin-bottom:48px;}
+  .group-head{display:flex; align-items:baseline; gap:14px; margin-bottom:18px;}
+  .group-head h2{font-size:18px; font-weight:600;}
+  .group-head .count{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--stone);}
+
+  .doc{
+    display:flex; align-items:center; gap:18px;
+    padding:16px 4px; border-top:1px solid var(--line);
+    transition:background .15s ease;
+  }
+  .group:last-child .doc:last-child{border-bottom:1px solid var(--line);}
+  .doc:hover{background:var(--paper);}
+  .doc-icon{width:30px; height:30px; flex-shrink:0; display:flex; align-items:center; justify-content:center; border:1px solid var(--line); border-radius:4px;}
+  .doc-icon svg{width:15px; height:15px; stroke:var(--orange); fill:none; stroke-width:1.6;}
+  .doc-info{flex:1; min-width:0;}
+  .doc-title{font-size:14.5px; font-weight:500; margin-bottom:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .doc-sub{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--stone);}
+  .doc-dl{
+    flex-shrink:0; font-size:12.5px; font-weight:600; color:var(--orange);
+    border:1px solid var(--orange); padding:8px 14px; border-radius:100px;
+    transition:border-color .15s ease, background .15s ease, color .15s ease;
+  }
+  .doc-dl:hover{background:var(--orange); color:var(--white);}
+
+  .note{
+    margin-top:20px; padding:18px 20px; background:var(--paper); border:1px solid var(--line);
+    font-size:13px; color:var(--stone);
+  }
+  .note b{color:var(--ink);}
+
+  .course-list{margin-bottom:40px;}
+  .course-row{
+    display:flex; align-items:center; justify-content:space-between; gap:20px;
+    padding:26px 4px; border-top:1px solid var(--line);
+    transition:background .15s ease;
+  }
+  .course-list .course-row:last-child{border-bottom:1px solid var(--line);}
+  .course-row:hover{background:var(--paper);}
+  .course-row .ct{font-family:'Fraunces', serif; font-size:19px; font-weight:600; margin-bottom:4px;}
+  .course-row .cs{font-size:13px; color:var(--stone);}
+  .course-row .arrow{font-size:18px; color:var(--orange); flex-shrink:0;}
+  .course-count{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--stone); flex-shrink:0;}
+
+  footer{border-top:1px solid var(--line); padding:40px 0; margin-top:40px;}
+  .footer-bottom{display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;}
+  .footer-bottom p{font-size:12.5px; color:var(--stone);}
+
+  @media (max-width:700px){
+    .wrap{padding:0 22px;}
+    .header-inner{padding:16px 22px;}
+    .doc-dl{display:none;}
+  }
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="logo" href="index.html">
+      <img class="uam-logo" src="data:image/webp;base64,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" alt="Université Amadou Mahtar Mbow">
+      <span class="logo-text">
+        <span class="logo-title">Portail DU2ADT</span>
+        <span class="logo-sub">Université Amadou Mahtar Mbow</span>
+      </span>
+    </a>
+    <a class="back-link" href="villes-urbanisation.html">← Villes et Urbanisation</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="breadcrumb mono">
+    <span>L1 — TRONC COMMUN</span><span class="sep">/</span><a href="villes-urbanisation.html">VILLES ET URBANISATION</a><span class="sep">/</span><span>DEVOIRS</span>
+  </div>
+
+  <div class="course-head">
+    <span class="mono">MATIÈRE</span>
+    <h1>Villes et Urbanisation</h1>
+    <p>Travaux dirigés notés, par groupe : chaque groupe a présenté un type de ville (antique, religieuse, minière, portuaire, intelligente...).</p>
+    <div class="course-meta">
+      <div><span class="k">NIVEAU</span><span class="v">L1 — Tronc commun</span></div>
+      <div><span class="k">DOCUMENTS</span><span class="v">16 fichiers</span></div>
+      <div><span class="k">DERNIÈRE MISE À JOUR</span><span class="v">Septembre 2026</span></div>
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="group-head"><h2>Travaux dirigés — par groupe</h2><span class="count mono">16</span></div>
+        <div class="doc">
+      <div class="doc-icon"><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg></div>
+      <div class="doc-info">
+        <div class="doc-title">Groupe 15 — Exposé villes et urbanisation</div>
+        <div class="doc-sub">PDF · 5,9 Mo</div>
+      </div>
+      <a class="doc-dl" href="documents/villes-urbanisation-td/groupe-15-expo.pdf" target="_blank" rel="noopener">Ouvrir</a>
+    </div>
+    <div class="doc">
+      <div class="doc-icon"><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg></div>
+      <div class="doc-info">
+        <div class="doc-title">Groupe 16 — Ville intelligente (PowerPoint)</div>
+        <div class="doc-sub">PPTX · 1,0 Mo</div>
+      </div>
+      <a class="doc-dl" href="documents/villes-urbanisation-td/groupe-16-ville-intelligente.pptx" target="_blank" rel="noopener">Ouvrir</a>
+    </div>
+    <div class="doc">
+      <div class="doc-icon"><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg></div>
+      <div class="doc-info">
+        <div class="doc-title">Groupe 16 — Villes intelligentes (résumé)</div>
+        <div class="doc-sub">DOCX · 16 Ko</div>
+      </div>
+      <a class="doc-dl" href="documents/villes-urbanisation-td/groupe-16-ville-intelligente-resume.docx" target="_blank" rel="noopener">Ouvrir</a>
+    </div>
+    <div class="doc">
+      <div class="doc-icon"><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg></div>
+      <div class="doc-info">
+        <div class="doc-title">Aéro-cités et villes portuaires — dynamiques urbaines comparées</div>
+        <div class="doc-sub">PPTX · 5,0 Mo</div>
+      </div>
+      <a class="doc-dl" href="documents/villes-urbanisation-td/aero-cites-villes-portuaires.pptx" target="_blank" rel="noopener">Ouvrir</a>
+    </div>
+    <div class="doc">
+      <div class="doc-icon"><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg></div>
+      <div class="doc-info">
+        <div class="doc-title">Les villes antiques</div>
+        <div class="doc-sub">PPTX · 3,4 Mo</div>
+      </div>
+      <a class="doc-dl" href="documents/villes-urbanisation-td/villes-antiques.pptx" target="_blank" rel="noopener">Ouvrir</a>
+    </div>
+    <div class="doc">
+      <div class="doc-icon"><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg></div>
+      <div class="doc-info">
+        <div class="doc-title">Les villes nouvelles en Afrique</div>
+        <div class="doc-sub">PPTX · 603 Ko</div>
+      </div>
+      <a class="doc-dl" href="documents/villes-urbanisation-td/villes-nouvelles-afrique.pptx" target="_blank" rel="noopener">Ouvrir</a>
+    </div>
+    <div class="doc">
+      <div class="doc-icon"><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg></div>
+      <div class="doc-info">
+        <div class="doc-title">Les villes nouvelles en Afrique (résumé)</div>
+        <div class="doc-sub">DOCX · 18 Ko</div>
+      </div>
+      <a class="doc-dl" href="documents/villes-urbanisation-td/villes-nouvelles-afrique-resume.docx" target="_blank" rel="noopener">Ouvrir</a>
+    </div>
+    <div class="doc">
+      <div class="doc-icon"><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg></div>
+      <div class="doc-info">
+        <div class="doc-title">Les villes religieuses au Sénégal</div>
+        <div class="doc-sub">PPTM · 898 Ko</div>
+      </div>
+      <a class="doc-dl" href="documents/villes-urbanisation-td/villes-religieuses-senegal.pptm" target="_blank" rel="noopener">Ouvrir</a>
+    </div>
+    <div class="doc">
+      <div class="doc-icon"><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg></div>
+      <div class="doc-info">
+        <div class="doc-title">Les villes religieuses au Sénégal (résumé)</div>
+        <div class="doc-sub">DOCX · 25 Ko</div>
+      </div>
+      <a class="doc-dl" href="documents/villes-urbanisation-td/villes-religieuses-senegal.docx" target="_blank" rel="noopener">Ouvrir</a>
+    </div>
+    <div class="doc">
+      <div class="doc-icon"><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg></div>
+      <div class="doc-info">
+        <div class="doc-title">Les villes touristiques au Sénégal</div>
+        <div class="doc-sub">PPTX · 1,4 Mo</div>
+      </div>
+      <a class="doc-dl" href="documents/villes-urbanisation-td/villes-touristiques-senegal.pptx" target="_blank" rel="noopener">Ouvrir</a>
+    </div>
+    <div class="doc">
+      <div class="doc-icon"><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg></div>
+      <div class="doc-info">
+        <div class="doc-title">Les villes minières au Sénégal</div>
+        <div class="doc-sub">PPTX · 1,5 Mo</div>
+      </div>
+      <a class="doc-dl" href="documents/villes-urbanisation-td/villes-minieres-senegal.pptx" target="_blank" rel="noopener">Ouvrir</a>
+    </div>
+    <div class="doc">
+      <div class="doc-icon"><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg></div>
+      <div class="doc-info">
+        <div class="doc-title">Les villes globales</div>
+        <div class="doc-sub">PPTX · 7,0 Mo</div>
+      </div>
+      <a class="doc-dl" href="documents/villes-urbanisation-td/villes-globales.pptx" target="_blank" rel="noopener">Ouvrir</a>
+    </div>
+    <div class="doc">
+      <div class="doc-icon"><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg></div>
+      <div class="doc-info">
+        <div class="doc-title">Les villes marchés d'importance sous-régionale au Sénégal</div>
+        <div class="doc-sub">PDF · 472 Ko</div>
+      </div>
+      <a class="doc-dl" href="documents/villes-urbanisation-td/villes-marches-sous-regionaux.pdf" target="_blank" rel="noopener">Ouvrir</a>
+    </div>
+    <div class="doc">
+      <div class="doc-icon"><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg></div>
+      <div class="doc-info">
+        <div class="doc-title">Exposés villes et urbanisation — 1</div>
+        <div class="doc-sub">PDF · 1,1 Mo</div>
+      </div>
+      <a class="doc-dl" href="documents/villes-urbanisation-td/exposes-villes-urbanisations-1.pdf" target="_blank" rel="noopener">Ouvrir</a>
+    </div>
+    <div class="doc">
+      <div class="doc-icon"><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg></div>
+      <div class="doc-info">
+        <div class="doc-title">Pa Tall — présentation</div>
+        <div class="doc-sub">PPTX · 2,3 Mo</div>
+      </div>
+      <a class="doc-dl" href="documents/villes-urbanisation-td/pa-tall.pptx" target="_blank" rel="noopener">Ouvrir</a>
+    </div>
+    <div class="doc">
+      <div class="doc-icon"><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg></div>
+      <div class="doc-info">
+        <div class="doc-title">Document complémentaire</div>
+        <div class="doc-sub">PDF · 52 Ko</div>
+      </div>
+      <a class="doc-dl" href="documents/villes-urbanisation-td/document-3.pdf" target="_blank" rel="noopener">Ouvrir</a>
+    </div>
+  </div>
+  <div class="note"><b>À savoir :</b> ces documents sont ceux que tu as transmis pour construire le portail. Clique sur « Ouvrir » pour les consulter.</div>
+</div>
+
+<footer>
+  <div class="wrap footer-bottom">
+    <p>Portail DU2ADT — Urbanisme, Architecture et Aménagement Durable des Territoires, UAM</p>
+    <p class="mono">MAQUETTE — V.01</p>
+  </div>
+</footer>
+
+</body>
+</html>
