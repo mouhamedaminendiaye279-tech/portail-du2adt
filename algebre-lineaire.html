@@ -102,6 +102,24 @@
   .page-head{padding:20px 0 52px; border-bottom:1px solid var(--line); margin-bottom:44px;}
   .page-head h1{font-size:clamp(30px,4vw,44px); max-width:20ch; margin:16px 0 14px;}
   .page-head p{font-size:15px; color:var(--stone); max-width:52ch;}
+
+  /* ---------- Rich footer ---------- */
+  .site-footer{border-top:1px solid var(--line); padding:56px 0 0; margin-top:40px;}
+  .footer-grid{display:flex; justify-content:space-between; gap:40px; flex-wrap:wrap; padding-bottom:40px;}
+  .footer-brand{max-width:340px;}
+  .footer-brand-head{display:flex; align-items:center; gap:10px; margin-bottom:14px;}
+  .footer-brand-head .fmark{width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-bottom:11px solid var(--orange);}
+  .footer-brand-head span{font-family:'Fraunces', serif; font-size:17px; font-weight:700;}
+  .footer-brand p{font-size:13.5px; color:var(--stone); line-height:1.6;}
+  .footer-cols{display:flex; gap:64px; flex-wrap:wrap;}
+  .footer-col h4{font-size:13px; font-weight:600; margin-bottom:14px;}
+  .footer-col ul{list-style:none; display:flex; flex-direction:column; gap:9px;}
+  .footer-col a{font-size:13.5px; color:var(--stone);}
+  .footer-col a:hover{color:var(--orange);}
+  .footer-disclaimer{
+    border-top:1px solid var(--line); padding:22px 0; text-align:center;
+  }
+  .footer-disclaimer p{font-size:12px; color:var(--stone); max-width:60ch; margin:0 auto;}
 </style>
 </head>
 <body>
@@ -171,10 +189,38 @@
   </div>
 </div>
 
-<footer>
-  <div class="wrap footer-bottom">
-    <p>Portail DU2ADT — Urbanisme, Architecture et Aménagement Durable des Territoires, UAM</p>
-    <p class="mono">MAQUETTE — V.01</p>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-brand-head">
+          <span class="fmark"></span>
+          <span>Portail DU2ADT</span>
+        </div>
+        <p>Retrouvez gratuitement les supports de cours, examens, devoirs, bibliothèque et exposés du département Urbanisme, Architecture et Aménagement Durable des Territoires.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html#structure">Niveaux</a></li>
+            <li><a href="ressources.html">Ressources</a></li>
+            <li><a href="contribuer.html">Contribuer</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Filières</h4>
+          <ul>
+            <li><a href="index.html#structure">L1 — Tronc commun</a></li>
+            <li><a href="index.html#structure">Architecture</a></li>
+            <li><a href="index.html#structure">Urbanisme et Aménagement</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-disclaimer">
+      <p>© 2026 Portail DU2ADT — Plateforme communautaire et gratuite, construite par et pour les étudiants, non affiliée officiellement à l'administration de l'UAM.</p>
+    </div>
   </div>
 </footer>
 
